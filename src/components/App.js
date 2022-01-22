@@ -1,10 +1,11 @@
 import '../App.css';
-import {Routes, Route} from 'react-router-dom';
-import React, {useState} from 'react';
+import {Routes, Route, useParams} from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
 import Header from "./Header";
-import Day from './Day';
+import HomeRedirect from './HomeRedirect'
+// import Day from './Day';
 // import Week from './Week';
-import Month from './Month';
+import MonthView from './MonthView';
 // import Year from './Year';
 
 /* COMPONENT STRUCTURE
@@ -23,28 +24,30 @@ import Month from './Month';
 */
 
 function App() {
-
-  // const events = ServerFetch()
-
-  const currentDate = Date()
-
-  console.log(currentDate)
-
-
-  const date = useState({
-    day:'1',
-    month:'1',
-    year:'1970'
+  let params = useParams()
+  const [events, setEvents] = useState([])
+  const [date, setDate] = useState({
+    day: '01',
+    month: '01',
+    year: '1970',
   })
 
+  console.log(params)
+
+  // useEffect(() => {
+  //   fetch(`${process.env.REACT_APP_API_URL}/events`)
+  //   .then(r => r.json())
+  //   .then(resp => console.log(resp))
+  // })
 
   return (
     <div className="App">
       <Header />
       <Routes>
-          <Route exact path='/m/:DD/:MM/:YYYY' element={<Month/>} date={date}/>
+          <Route exact path='/' element={<HomeRedirect/>}/>
+          <Route exact path='/m/:DD/:MM/:YYYY' element={<MonthView/>}/>
           {/* <Route path='y' element={<Year/>}/> */}
-          <Route exact path='/d/:DD/:MM/:YYYY' element={<Day/>}/>
+          {/* <Route exact path='/d/:DD/:MM/:YYYY' element={<Day/>}/> */}
       </Routes>
     </div>
   );

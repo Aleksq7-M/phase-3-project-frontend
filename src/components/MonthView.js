@@ -29,7 +29,7 @@ const Day = styled.div`
     flex: 1 1 0%;
     overflow: hidden;
 `
-const DayLabel = styled.th`
+const DayLabel = styled.strong`
     border: 0;
     text-align: center;
     height: 25px;
@@ -38,7 +38,7 @@ const DayLabel = styled.th`
     justify-content: center;
 `
 
-function Month({date}) {
+function MonthView({date}) {
 
     return(
         <MonthContainer>
@@ -114,4 +114,4 @@ function Month({date}) {
     )
 }
 
-export default Month;
+export default MonthView;

@@ -12,9 +12,9 @@ const Background = styled.div`
 function Header () {
     return(
         <Background>
-            <label for='day'>
-                <select id='day'>
-                    <option></option>
+            <label htmlFor='day-select'>
+                <select name='day' id='day-select'>
+                    <option>1</option>
                 </select>
             </label>
         </Background> 
