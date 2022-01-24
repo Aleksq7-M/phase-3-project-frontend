@@ -1,14 +1,18 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import Header from './Header';
+import Day from './Day';
 
 const MonthContainer = styled.div`
     width: 100%;
-    display: flex
-    align-items: center;
-    justify-content: center;
+    height: 100%;
+    display: flex;
+    justify-content: right;
+    align-content: right;
 `
 const Calendar = styled.div`
-    width: 85%;
+    width: 75%;
 `
 const Week = styled.div`
     height: 100px;
@@ -20,15 +24,7 @@ const Week = styled.div`
 const CalendarHeader = styled(Week)`
     height:25px;
 `
-const Day = styled.div`
-    border: 1px solid black;
-    border-collapse: collapse;
-    text-align: center;
-    display: flex;
-    flex-flow: column nowrap;
-    flex: 1 1 0%;
-    overflow: hidden;
-`
+
 const DayLabel = styled.strong`
     border: 0;
     text-align: center;
@@ -38,79 +34,84 @@ const DayLabel = styled.strong`
     justify-content: center;
 `
 
-function MonthView({date}) {
+function MonthView() {
+
+    let params = useParams();
+
+    console.log(params)
+
 
     return(
-        <MonthContainer>
-            <Calendar>
-                <CalendarHeader id='week0'>
-                    <DayLabel>S</DayLabel>
-                    <DayLabel>M</DayLabel>
-                    <DayLabel>T</DayLabel>
-                    <DayLabel>W</DayLabel>
-                    <DayLabel>T</DayLabel>
-                    <DayLabel>F</DayLabel>
-                    <DayLabel>S</DayLabel>
-                </CalendarHeader>
-                <Week id='week1'>
-                    <Day>
-                        <span>1</span>
-                        <div>event</div>
-                    </Day>
-                    <Day>2</Day>
-                    <Day>3</Day>
-                    <Day>4</Day>
-                    <Day>5</Day>
-                    <Day>6</Day>
-                    <Day>7</Day>
-                </Week>
-                <Week id='week2'>
-                    <Day>8</Day>
-                    <Day>9</Day>
-                    <Day>10</Day>
-                    <Day>11</Day>
-                    <Day>12</Day>
-                    <Day>13</Day>
-                    <Day>14</Day>
-                </Week>
-                <Week id='week3'>
-                    <Day>15</Day>
-                    <Day>16</Day>
-                    <Day>17</Day>
-                    <Day>18</Day>
-                    <Day>19</Day>
-                    <Day>20</Day>
-                    <Day>21</Day>
-                </Week>
-                <Week id='week4'>
-                    <Day>22</Day>
-                    <Day>23</Day>
-                    <Day>24</Day>
-                    <Day>25</Day>
-                    <Day>26</Day>
-                    <Day>27</Day>
-                    <Day>28</Day>
-                </Week>
-                <Week id='week5'>
-                    <Day>29</Day>
-                    <Day>30</Day>
-                    <Day>31</Day>
-                    <Day>32</Day>
-                    <Day>33</Day>
-                    <Day>34</Day>
-                    <Day>35</Day>
-                </Week>
-                <Week id='week6'>
-                    <Day>e1</Day>
-                    <Day>e2</Day>
-                    <Day>e3</Day>
-                    <Day>e4</Day>
-                    <Day>e5</Day>
-                    <Day>e6</Day>
-                    <Day>e7</Day>
-                </Week>
-            </Calendar>
-        </MonthContainer>
+        <div>
+            <Header params={params} />
+            <MonthContainer>
+                <Calendar>
+                    <CalendarHeader id='week0'>
+                        <DayLabel>S</DayLabel>
+                        <DayLabel>M</DayLabel>
+                        <DayLabel>T</DayLabel>
+                        <DayLabel>W</DayLabel>
+                        <DayLabel>T</DayLabel>
+                        <DayLabel>F</DayLabel>
+                        <DayLabel>S</DayLabel>
+                    </CalendarHeader>
+                    <Week id='week1'>
+                        <Day number = '1'/>
+                        <Day number = '2'/>
+                        <Day number = '3'/>
+                        <Day number = '4'/>
+                        <Day number = '5'/>
+                        <Day number = '6'/>
+                        <Day number = '7'/>
+                    </Week>
+                    <Week id='week2'>
+                        <Day number = '8'/>
+                        <Day number = '9'/>
+                        <Day number = '10'/>
+                        <Day number = '11'/>
+                        <Day number = '12'/>
+                        <Day number = '13'/>
+                        <Day number = '14'/>
+                    </Week>
+                    <Week id='week3'>
+                        <Day number = '15'/>
+                        <Day number = '16'/>
+                        <Day number = '17'/>
+                        <Day number = '18'/>
+                        <Day number = '19'/>
+                        <Day number = '20'/>
+                        <Day number = '21'/>
+                    </Week>
+                    <Week id='week4'>
+                        <Day number = '22'/>
+                        <Day number = '23'/>
+                        <Day number = '24'/>
+                        <Day number = '25'/>
+                        <Day number = '26'/>
+                        <Day number = '27'/>
+                        <Day number = '28'/>
+                    </Week>
+                    <Week id='week5'>
+                        <Day number = '29'/>
+                        <Day number = '30'/>
+                        <Day number = '31'/>
+                        <Day number = '32'/>
+                        <Day number = '33'/>
+                        <Day number = '34'/>
+                        <Day number = '35'/>
+                    </Week>
+                    <Week id='week6'>
+                        <Day number = 'e1'/>
+                        <Day number = 'e2'/>
+                        <Day number = 'e3'/>
+                        <Day number = 'e4'/>
+                        <Day number = 'e5'/>
+                        <Day number = 'e6'/>
+                        <Day number = 'e7'/>
+                    </Week>
+                </Calendar>
+            </MonthContainer>
+        </div>
     )
 }
 

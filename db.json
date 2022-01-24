@@ -1,13 +1,13 @@
 {
     "events":[
         {
-        "id": 1,
-        "event_start": 986108400,
-        "event_end": 986191199,
-        "event_name": "Happy Birthday!",
-        "event_location": "Wherever I am",
-        "other_event_information": "to be decided",
-        "recurring": true
+            "id": 1,
+            "event_start": 986108400,
+            "event_end": 986191199,
+            "event_name": "Happy Birthday!",
+            "event_location": "Wherever I am",
+            "other_event_information": "to be decided",
+            "recurring": true
         },
         {
             "id": 2,

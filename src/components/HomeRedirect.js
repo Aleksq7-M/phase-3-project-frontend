@@ -46,6 +46,8 @@ function HomeRedirect() {
             case "Dec":
                 range[0] = '12';
                 break;
+            default: 
+                range[0] = '01'
         }
         return range;
     }

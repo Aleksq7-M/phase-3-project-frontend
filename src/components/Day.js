@@ -1,17 +1,26 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const DayContainer = styled.div`
-    position: absolute;
-    top: 6em;
-    width: 100%
+const Div = styled.div`
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align: center;
+    display: flex;
+    flex-flow: column nowrap;
+    flex: 1 1 0%;
+    overflow: hidden;
+`
+const EventDisplay = styled.div`
+    height: 100%;
+    text-align: left;
 `
 
-function Day(){
+function Day({number, events}){
     return(
-        <DayContainer className='Day'>
-            Day Here
-        </DayContainer>
+        <Div>
+            <span>{number}</span>
+            <EventDisplay>event</EventDisplay>
+        </Div>
     )
 }
 
