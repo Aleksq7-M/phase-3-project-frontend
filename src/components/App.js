@@ -1,6 +1,7 @@
 import '../App.css';
 import {Routes, Route, useParams} from 'react-router-dom';
 import React, {useEffect, useState} from 'react';
+import Header from "./Header";
 import HomeRedirect from './HomeRedirect'
 // import Day from './Day';
 // import Week from './Week';
@@ -40,6 +41,7 @@ function App() {
 
   return (
     <div className="App">
+      <Header />
       <Routes>
           <Route exact path='/' element={<HomeRedirect/>}/>
           <Route exact path='/m/:DD/:MM/:YYYY' element={<MonthView/>}/>
