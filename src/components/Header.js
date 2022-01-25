@@ -9,26 +9,31 @@ const Background = styled.div`
     
 `
 
-function Header ({params}) {
+function Header ({date, onDateChange}) {
+
+    function handleChange(event){
+        const {name, value} = event.target
+        onDateChange(name, value)
+    }
 
     const dayOptions = [];
     for (let i=1; i<32; i++){
         dayOptions.push(
-            <option name={`${i}`} value={i<10?`0${i}`:`${i}`}>{i}</option>
+            <option key = {i} name={`${i}`} value={i<10?`0${i}`:`${i}`}>{i}</option>
         )
     }
 
     const monthOptions = [];
     for (let i=1; i<13; i++){
         monthOptions.push(
-            <option name={`${i}`} value={i<10?`0${i}`:`${i}`}>{i}</option>
+            <option key={i} name={`${i}`} value={i<10?`0${i}`:`${i}`}>{i}</option>
         )
     }
 
     const yearOptions = [];
     for (let i=1970; i<2039;i++){
         yearOptions.push(
-            <option name={`${i}`} value={i}>{i}</option>
+            <option key={i} name={`${i}`} value={i}>{i}</option>
         )
     }
 
@@ -36,19 +41,19 @@ function Header ({params}) {
         <Background>
             <label htmlFor='day-select'>
                 Day:
-                <select name='day' id='day-select'>
+                <select name='day' id='day-select' value={date.day} onChange={handleChange}>
                     {dayOptions}
                 </select>
             </label>
             <label htmlFor='month-select'>
                 Month: 
-                <select name='month' id='month-select'>
+                <select name='month' id='month-select' value={date.month} onChange={handleChange}>
                     {monthOptions}
                 </select>
             </label>
             <label htmlFor='year-select'>
                 Year:
-                <select name='year' id='year-select'>
+                <select name='year' id='year-select' value={date.year} onChange={handleChange}>
                     {yearOptions}
                 </select>
             </label>

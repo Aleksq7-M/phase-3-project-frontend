@@ -39,9 +39,17 @@ function App() {
   //   .then(resp => console.log(resp))
   // })
 
+  function handleDateChange(name, value){
+    const updatedDate = {
+      ...date,
+      [name]: value
+    }
+    setDate(updatedDate)
+  }
+
   return (
     <div className="App">
-      <Header />
+      <Header date={date} onDateChange={handleDateChange}/>
       <Routes>
           <Route exact path='/' element={<HomeRedirect/>}/>
           <Route exact path='/m/:DD/:MM/:YYYY' element={<MonthView/>}/>
