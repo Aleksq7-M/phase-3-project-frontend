@@ -26,35 +26,22 @@ import MonthView from './MonthView';
 */
 
 function App() {
-  const [events, setEvents] = useState([])
+  let initialDate = new Date;
+
   const [date, setDate] = useState({
-    day: '01',
-    month: '01',
-    year: '1970',
-  })
-
-  // useEffect(() => {
-  //   fetch(`${process.env.REACT_APP_API_URL}/events`)
-  //   .then(r => r.json())
-  //   .then(resp => console.log(resp))
-  // })
-
-  function handleDateChange(name, value){
-    const updatedDate = {
-      ...date,
-      [name]: value
-    }
-    setDate(updatedDate)
-  }
+    day: initialDate.getDate().toString(),
+    month: (initialDate.getMonth() + 1).toString(),
+    year: initialDate.getFullYear().toString()
+})
 
   return (
     <div className="App">
-      <Header date={date} onDateChange={handleDateChange}/>
-      <Routes>
-          <Route exact path='/' element={<HomeRedirect/>}/>
-          <Route exact path='/m/:DD/:MM/:YYYY' element={<MonthView/>}/>
-          {/* <Route path='y' element={<Year/>}/> */}
-          {/* <Route exact path='/d/:DD/:MM/:YYYY' element={<Day/>}/> */}
+      <Routes>s
+          <Route path='/' element={<Header date={date} setDate={setDate}/>}>
+            <Route exact path='/m/:dd/:mm/:yyyy' element={<MonthView/>}/>
+            {/* <Route path='y' element={<Year/>}/> */}
+            {/* <Route exact path='/d/:DD/:MM/:YYYY' element={<Day/>}/> */}
+            </Route>
       </Routes>
     </div>
   );

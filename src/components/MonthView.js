@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import Day from './Day';
+import Day from './MonthChildren/Day';
 
 const MonthContainer = styled.div`
     width: 100%;
     height: 100%;
+    position: absolute;
+    top: 6em;
     display: flex;
     justify-content: right;
     align-content: right;
@@ -37,7 +39,11 @@ function MonthView() {
 
     let params = useParams();
 
-    console.log(params)
+    useEffect(() => {
+        fetch(`${process.env.REACT_APP_API_URL}/m/${params.dd}/${params.mm}/${params.yyyy}`)
+        .then(r => r.json())
+        .then(resp => console.log(resp))
+    })
 
 
     return(

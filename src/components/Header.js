@@ -1,5 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
+import { useNavigate, Outlet } from 'react-router-dom';
+import { useEffect } from 'react/cjs/react.development';
 
 const Background = styled.div`
     background-color: gray;
@@ -9,24 +11,46 @@ const Background = styled.div`
     
 `
 
-function Header ({date, onDateChange}) {
+function Header ({date, setDate, setEvents}) {
 
-    function handleChange(event){
+    let navigate = useNavigate()
+    // let initialDate = new Date;
+
+
+    // const [date, setDate] = useState({
+    //     day: initialDate.getDate().toString(),
+    //     month: initialDate.getMonth().toString(),
+    //     year: initialDate.getFullYear().toString()
+    // })
+    const {day, month, year} = date
+
+    const [viewState, setViewState] = useState('m')
+
+    useEffect(() => {
+        navigate(`/${viewState}/${day}/${month}/${year}`, {replace: true})
+    }, [date, viewState])
+
+
+    function handleDateChange(event){
         const {name, value} = event.target
-        onDateChange(name, value)
+        const updatedDate = {
+            ...date,
+            [name]: value
+        }
+        setDate(updatedDate)
     }
 
     const dayOptions = [];
     for (let i=1; i<32; i++){
         dayOptions.push(
-            <option key = {i} name={`${i}`} value={i<10?`0${i}`:`${i}`}>{i}</option>
+            <option key = {i} name={`${i}`} value={i}>{i}</option>
         )
     }
 
     const monthOptions = [];
     for (let i=1; i<13; i++){
         monthOptions.push(
-            <option key={i} name={`${i}`} value={i<10?`0${i}`:`${i}`}>{i}</option>
+            <option key={i} name={`${i}`} value={i}>{i}</option>
         )
     }
 
@@ -41,31 +65,32 @@ function Header ({date, onDateChange}) {
         <Background>
             <label htmlFor='day-select'>
                 Day:
-                <select name='day' id='day-select' value={date.day} onChange={handleChange}>
+                <select name='day' id='day-select' value={day} onChange={handleDateChange}>
                     {dayOptions}
                 </select>
             </label>
             <label htmlFor='month-select'>
                 Month: 
-                <select name='month' id='month-select' value={date.month} onChange={handleChange}>
+                <select name='month' id='month-select' value={month} onChange={handleDateChange}>
                     {monthOptions}
                 </select>
             </label>
             <label htmlFor='year-select'>
                 Year:
-                <select name='year' id='year-select' value={date.year} onChange={handleChange}>
+                <select name='year' id='year-select' value={year} onChange={handleDateChange}>
                     {yearOptions}
                 </select>
             </label>
             <label htmlFor='view-select'>
                 View:
-                <select name='year' id='year-select'>
+                <select name='view' id='view-select' value={viewState} onChange={(e) => setViewState(e.target.value)}>
                     <option name='day' value='d'>Day</option>
                     <option name='week' value='w'>Week</option>
                     <option name='month' value='m'>Month</option>
                     <option name='year' value='y'>Year</option>
                 </select>
             </label>
+            <Outlet/>
         </Background> 
     )
 }
