@@ -1,8 +1,7 @@
 import '../App.css';
-import {Routes, Route, useParams} from 'react-router-dom';
-import React, {useEffect, useState} from 'react';
+import {Routes, Route} from 'react-router-dom';
+import React, {useState} from 'react';
 import Header from "./Header";
-import HomeRedirect from './HomeRedirect'
 // import Day from './Day';
 // import Week from './Week';
 import MonthView from './MonthView';
@@ -15,14 +14,19 @@ import MonthView from './MonthView';
     -MonthSelect]
     -DaySelect]
     -ViewStyle]
-  -HomeRedirect(automatically redirects from route '/' to a month view of the current date)
   -DayView
-    -...
+    -... (consider how to re-use components between calendar views to save code)
   -WeekView
     -...
   -MonthView
-    -Day
-  -YearView
+    -Calendar
+      -Week
+        -Day x 7 (days are the last custom component in the tree)
+      -Week
+      -...
+      -...(enough Weeks)
+  -YearView (DOES NOT TAKE EVENTS, TOO LARGE A RANGE OF POSSIBLE EVENTS)
+    -(Whatever's in here will redirect to month and maybe day views)
 */
 
 function App() {
@@ -34,11 +38,19 @@ function App() {
     year: initialDate.getFullYear().toString()
 })
 
+  let [events, setEvents] = useState([])
+
+  function handleDateChange(view){
+    fetch(`${process.env.REACT_APP_API_URL}/${view}/${date.day}/${date.month}/${date.year}`)
+      .then(r => r.json())
+      .then(resp => setEvents(resp))
+  }
+
   return (
     <div className="App">
       <Routes>s
           <Route path='/' element={<Header date={date} setDate={setDate}/>}>
-            <Route exact path='/m/:dd/:mm/:yyyy' element={<MonthView/>}/>
+            <Route exact path='/m/:dd/:mm/:yyyy' element={<MonthView date={date} events={events} onDateChange={handleDateChange}/>}/>
             {/* <Route path='y' element={<Year/>}/> */}
             {/* <Route exact path='/d/:DD/:MM/:YYYY' element={<Day/>}/> */}
             </Route>

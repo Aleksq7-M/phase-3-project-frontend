@@ -11,17 +11,10 @@ const Background = styled.div`
     
 `
 
-function Header ({date, setDate, setEvents}) {
+function Header ({date, setDate}) {
 
     let navigate = useNavigate()
-    // let initialDate = new Date;
 
-
-    // const [date, setDate] = useState({
-    //     day: initialDate.getDate().toString(),
-    //     month: initialDate.getMonth().toString(),
-    //     year: initialDate.getFullYear().toString()
-    // })
     const {day, month, year} = date
 
     const [viewState, setViewState] = useState('m')
