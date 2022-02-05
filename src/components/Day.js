@@ -14,13 +14,18 @@ const Div = styled.div`
 `
 const EventDisplay = styled.div`
     height: 100%;
-    text-align: left;
     font-size: 0.85em;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-evenly;
 `
 
-const EventList = styled.ul`
-    padding-left:10px;
-    margin:0;
+const Event = styled.div`
+    background-color: lightblue;
+    width: 85%
+    max-height: 1em;
+    overflow: hidden;
+    font-weight: normal;
 `
 
 const DayNumber = styled.div`
@@ -37,14 +42,20 @@ console.log(events)
         <Div smart={smart}>
             <DayNumber>{number}</DayNumber>
             <EventDisplay>
-                <EventList>
+                {/* <EventList>
                     {typeof events === "object" ? 
                     events.map(event =>{
                         return <li>{event.event_name}</li>
                     }) :
                     []
                 }
-                </EventList>
+                </EventList> */}
+                {typeof events === "object" ? 
+                events.map(event =>{ 
+                        return <Event>{event.event_name}</Event>
+                    }) :
+                    []
+                }
             </EventDisplay>
         </Div>
     )
