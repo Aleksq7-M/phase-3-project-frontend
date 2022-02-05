@@ -10,14 +10,12 @@ import MonthView from './MonthView';
 /* COMPONENT STRUCTURE
 -App *you are here*
   -Header
-    -YearSelect]
-    -MonthSelect]
-    -DaySelect]
-    -ViewStyle]
+    -YearSelect
+    -MonthSelect
+    -DaySelect
+    -ViewStyle
   -DayView
     -... (consider how to re-use components between calendar views to save code)
-  -WeekView
-    -...
   -MonthView
     -Calendar
       -Week
@@ -25,12 +23,12 @@ import MonthView from './MonthView';
       -Week
       -...
       -...(enough Weeks)
-  -YearView (DOES NOT TAKE EVENTS, TOO LARGE A RANGE OF POSSIBLE EVENTS)
+  -YearView (DOES NOT TRIGGER REQUESTS TO DB ON LOAD)
     -(Whatever's in here will redirect to month and maybe day views)
 */
 
 function App() {
-  let initialDate = new Date;
+  let initialDate = new Date();
 
   const [date, setDate] = useState({
     day: initialDate.getDate().toString(),

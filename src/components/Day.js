@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Div = styled.div`
+    color: ${props => props.smart ? "black" : "grey"};
+    font-weight: ${props => props.smart ? "bold" : "normal"};
     border: 1px solid black;
     border-collapse: collapse;
     text-align: center;
@@ -28,19 +30,20 @@ const DayNumber = styled.div`
     content-align:left;
 `
 
-function Day({number, events}){
+function Day({number, events, smart}){
 
-    if (events !== []){
-        console.log(events)
-    }
+console.log(events)
     return(
-        <Div>
+        <Div smart={smart}>
             <DayNumber>{number}</DayNumber>
             <EventDisplay>
                 <EventList>
-                    {events.map(event =>{
+                    {typeof events === "object" ? 
+                    events.map(event =>{
                         return <li>{event.event_name}</li>
-                    })}
+                    }) :
+                    []
+                }
                 </EventList>
             </EventDisplay>
         </Div>
