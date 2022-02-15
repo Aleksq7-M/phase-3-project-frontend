@@ -2,10 +2,9 @@ import '../App.css';
 import {Routes, Route} from 'react-router-dom';
 import React, {useState} from 'react';
 import Header from "./Header";
-// import Day from './Day';
 // import Week from './Week';
 import MonthView from './MonthView';
-// import Year from './Year';
+import YearView from './YearView';
 
 /* COMPONENT STRUCTURE
 -App *you are here*
@@ -36,20 +35,22 @@ function App() {
     year: initialDate.getFullYear().toString()
 })
 
+  const [userState, setUserState] = useState('5')
+
   let [events, setEvents] = useState([])
 
   function handleDateChange(view){
-    fetch(`${process.env.REACT_APP_API_URL}/${view}/${date.day}/${date.month}/${date.year}`)
+    fetch(`${process.env.REACT_APP_API_URL}/${view}/${date.day}/${date.month}/${date.year}/${userState}`)
       .then(r => r.json())
       .then(resp => setEvents(resp))
   }
 
   return (
     <div className="App">
-      <Routes>s
-          <Route path='/' element={<Header date={date} setDate={setDate}/>}>
-            <Route exact path='/m/:dd/:mm/:yyyy' element={<MonthView date={date} events={events} onDateChange={handleDateChange}/>}/>
-            {/* <Route path='y' element={<Year/>}/> */}
+      <Routes>
+          <Route path='/' element={<Header date={date} setDate={setDate} userState={userState} setUserState={setUserState}/>}>
+            <Route exact path='/m/:dd/:mm/:yyyy/:user_id' element={<MonthView date={date} userState={userState} events={events} onDateChange={handleDateChange}/>}/>
+            <Route exact path='y/:dd/:mm/:yyyy/:user_id' element={<YearView date={date}/>}/>
             {/* <Route exact path='/d/:DD/:MM/:YYYY' element={<Day/>}/> */}
             </Route>
       </Routes>

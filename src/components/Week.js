@@ -13,8 +13,9 @@ const WeekDiv = styled.div`
 function Week({weekEvents}){
 
     //weekEvents = [
-    //     ['day_x', [...events]],
-    //     ...
+    //     ['day_-x', []],  **denotes days from previous month**
+    //     ['day_x', [...events]], **days from selected month**
+    //     ['day_+x', []] **days from next month**
     // ]
 
     return(<WeekDiv>
@@ -22,7 +23,7 @@ function Week({weekEvents}){
             const number = day[0].split('_')[1]
             return (number.includes('+') || number.includes('-')?
             <Day key={day[0]} number={number.slice(1)} /> :
-            <Day key={day[0]} number={number} events={day[1]} smart/>)
+            <Day key={day[0]} number={number} events={day[1]} hasEvents/>)
         })}
     </WeekDiv>)
 }

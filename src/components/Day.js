@@ -1,9 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useParams } from 'react-router-dom';
 
 const Div = styled.div`
-    color: ${props => props.smart ? "black" : "grey"};
-    font-weight: ${props => props.smart ? "bold" : "normal"};
+    color: ${props => {
+        if (props.hasEvents === true){
+            if (props.selected === true){
+                return "red"
+            }else{
+                return "black"
+            }
+        } else {
+            return "gray"
+        }
+    }};
+    font-weight: ${props => props.hasEvents ? "bold" : "normal"};
     border: 1px solid black;
     border-collapse: collapse;
     text-align: center;
@@ -15,19 +26,19 @@ const Div = styled.div`
 const EventDisplay = styled.div`
     height: 100%;
     font-size: 0.85em;
+    overflow: hidden;
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-evenly;
 `
-
 const Event = styled.div`
     background-color: lightblue;
     width: 85%
-    max-height: 1em;
+    display: flex;
+    max-height: 1.3em;
     overflow: hidden;
     font-weight: normal;
 `
-
 const DayNumber = styled.div`
     width: 100%;
     height: 1.5em;
@@ -35,28 +46,24 @@ const DayNumber = styled.div`
     content-align:left;
 `
 
-function Day({number, events, smart}){
+function Day({number, events, hasEvents, selected}){
+    const params = useParams()
 
-console.log(events)
+    // console.log(events)
     return(
-        <Div smart={smart}>
-            <DayNumber>{number}</DayNumber>
-            <EventDisplay>
-                {/* <EventList>
-                    {typeof events === "object" ? 
-                    events.map(event =>{
-                        return <li>{event.event_name}</li>
-                    }) :
-                    []
-                }
-                </EventList> */}
+        <Div hasEvents={hasEvents} selected={selected}>
+            <DayNumber selected={number === params.dd ? true : false}>{number}</DayNumber>
+            {hasEvents?
+                <EventDisplay>
                 {typeof events === "object" ? 
-                events.map(event =>{ 
-                        return <Event>{event.event_name}</Event>
+                events.map((event, index) =>{ 
+                        return <Event key={index}>{event.event_name}</Event>
                     }) :
                     []
                 }
-            </EventDisplay>
+            </EventDisplay> :
+            []
+            }
         </Div>
     )
 }

@@ -11,7 +11,7 @@ const Background = styled.div`
     
 `
 
-function Header ({date, setDate}) {
+function Header ({date, setDate, userState, setUserState}) {
 
     let navigate = useNavigate()
 
@@ -19,8 +19,9 @@ function Header ({date, setDate}) {
 
     const [viewState, setViewState] = useState('m')
 
+
     useEffect(() => {
-        navigate(`/${viewState}/${day}/${month}/${year}`, {replace: true})
+        navigate(`/${viewState}/${day}/${month}/${year}/${userState}`, {replace: true})
     }, [date, viewState])
 
 
@@ -56,6 +57,13 @@ function Header ({date, setDate}) {
 
     return(
         <Background>
+            <label htmlFor='user-select'>
+                User:
+                <select name='user' id="user-select" value={userState} onChange={e => setUserState(e.target.value)}>
+                    <option name='1' value='4'>User U</option>
+                    <option name='2' value='5'>User 1</option>
+                </select>
+            </label>
             <label htmlFor='day-select'>
                 Day:
                 <select name='day' id='day-select' value={day} onChange={handleDateChange}>
