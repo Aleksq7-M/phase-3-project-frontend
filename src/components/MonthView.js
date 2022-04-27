@@ -13,21 +13,10 @@ const MonthContainer = styled.div`
     align-content: center;
 `
 
-function MonthView({date, events, onDateChange, userState}) {
-
-    // console.log(events)
-
-    let params = useParams();
-
-
-    useEffect(() => {
-        onDateChange('m', params.dd, params.mm, params.yyyy)
-    }, [date, userState])
-
-
+function MonthView({events,date}) {
     return(
         <MonthContainer>
-            <Calendar events={events}>
+            <Calendar date={date} events={events} hasEvents>
             </Calendar>
         </MonthContainer>
     )

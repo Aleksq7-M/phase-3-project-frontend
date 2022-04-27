@@ -11,18 +11,24 @@ const Background = styled.div`
     
 `
 
-function Header ({date, setDate, userState, setUserState}) {
+function Header ({date, setDate, setEvents}) {
 
     let navigate = useNavigate()
 
     const {day, month, year} = date
 
-    const [viewState, setViewState] = useState('m')
+    // const [viewState, setViewState] = useState('m')
 
+    const [userState, setUserState] = useState('4')
 
     useEffect(() => {
-        navigate(`/${viewState}/${day}/${month}/${year}/${userState}`, {replace: true})
-    }, [date, viewState])
+        fetch(`${process.env.REACT_APP_API_URL}/m/${day}/${month}/${year}/${userState}`)
+      .then(r => r.json())
+      .then(resp => {
+          setEvents(resp)
+          navigate(`/m/${day}/${month}/${year}/${userState}`, {replace: true})
+        })
+    }, [date, userState])
 
 
     function handleDateChange(event){
@@ -82,7 +88,7 @@ function Header ({date, setDate, userState, setUserState}) {
                     {yearOptions}
                 </select>
             </label>
-            <label htmlFor='view-select'>
+            {/* <label htmlFor='view-select'>
                 View:
                 <select name='view' id='view-select' value={viewState} onChange={(e) => setViewState(e.target.value)}>
                     <option name='day' value='d'>Day</option>
@@ -90,7 +96,7 @@ function Header ({date, setDate, userState, setUserState}) {
                     <option name='month' value='m'>Month</option>
                     <option name='year' value='y'>Year</option>
                 </select>
-            </label>
+            </label> */}
             <Outlet/>
         </Background> 
     )

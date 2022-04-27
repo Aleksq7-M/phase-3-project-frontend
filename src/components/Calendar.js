@@ -22,10 +22,10 @@ const DayLabel = styled.strong`
     justify-content: center;
 `
 
-function Calendar({events}) {
+function Calendar({events, date, hasEvents}) {
 
-    const params = useParams()
-    const firstOfMonth = new Date(params.yyyy, params.mm-1, 1)
+    const {day, month, year} = date
+    const firstOfMonth = new Date(year, month-1, 1)
     const weekOffset = firstOfMonth.getDay()
 
     function lastMonthLength(month){
@@ -50,7 +50,7 @@ function Calendar({events}) {
     let offsetDays = {}
 
     for (let i=weekOffset; i>0; i--){
-        offsetDays[`day_-${lastMonthLength(parseInt(params.mm)) - i + 1}`] = []
+        offsetDays[`day_-${lastMonthLength(parseInt(month)) - i + 1}`] = []
     }
 
     offsetDays = {
